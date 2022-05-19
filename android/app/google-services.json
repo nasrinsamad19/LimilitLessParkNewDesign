@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "714852231796",
+    "project_id": "limilesspark",
+    "storage_bucket": "limilesspark.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714852231796:android:9f6bf7960c4c0985213f21",
+        "android_client_info": {
+          "package_name": "com.example.limitlesspark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714852231796-5gfsl7red4a3vkkuckdrmvpe3gu9vc3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.limitlesspark",
+            "certificate_hash": "42b483d6b58018d667a26dd1d83b21abda9f97ff"
+          }
+        },
+        {
+          "client_id": "714852231796-s38hpjl097epjfhomck5joo0cn6cimos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDShl8E-Rn_u7msgIO13WOaO0ZJmIUzXEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714852231796-s38hpjl097epjfhomck5joo0cn6cimos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
