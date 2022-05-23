@@ -88,11 +88,14 @@ class _Notification_uiState extends State<Notification_ui> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(color: ColorNames().blue, fontSize: 15.0),
+                    style: TextStyle(
+                      color: ColorNames().blue,
+                      fontSize: 15.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ],
               ))),
-
       body: SafeArea(
           child: RefreshIndicator(
         onRefresh: () => getList(),
@@ -129,15 +132,20 @@ class _Notification_uiState extends State<Notification_ui> {
                               children: [
                                 Text(titleList[index],
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Roboto',
+                                    )),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(list[index],
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 9)),
+                                      color: Colors.black,
+                                      fontSize: 9,
+                                      fontFamily: 'Roboto',
+                                    )),
                               ],
                             )
                           ],
@@ -168,8 +176,11 @@ class _Notification_uiState extends State<Notification_ui> {
                     getnotification();
                   },
                   child: Center(
-                    child:
-                        Text('REFRESH', style: TextStyle(color: Colors.white)),
+                    child: Text('REFRESH',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                        )),
                   )),
             ),
           ),

@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:limitlesspark_new/screens/activities/model/model.dart';
 import 'package:limitlesspark_new/screens/book_now/model/model.dart';
@@ -16,6 +13,11 @@ class CallApi {
   final String _baseUrl =
       "http://USERLBS-1736480021.us-east-1.elb.amazonaws.com/";
 
+  _setHeaders() => {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
   postData(data, apiUrl) async {
     var fullUrl = _baseUrl + apiUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,7 +29,6 @@ class CallApi {
       'Authorization': 'Token ${token}',
     });
     print("Result: ${res.body}");
-
     print(res.statusCode);
     print(res.body);
     print(res.reasonPhrase);
@@ -36,10 +37,6 @@ class CallApi {
       Profile.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return false;
     }
   }
@@ -62,10 +59,6 @@ class CallApi {
       // User.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return false;
     }
   }
@@ -85,10 +78,6 @@ class CallApi {
       //User.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return false;
     }
   }
@@ -108,18 +97,9 @@ class CallApi {
       //User.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return false;
     }
   }
-
-  _setHeaders() => {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
 
   Future<Object> login(LoginRequestModel loginRequestModel) async {
     String lurl = 'users/token/';
@@ -130,26 +110,6 @@ class CallApi {
     print(response.reasonPhrase);
     final responseJson = json.decode(response.body);
     print(responseJson);
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // await prefs.setString('token', responseJson['access_token']);
-    // var jsonList =
-    //     responseJson['cars'].map((item) => jsonEncode(item)).toList();
-    // await prefs.setStringList(
-    //   'cars',
-    //   jsonList.cast<String>(),
-    // );
-    // var token = prefs.getStringList('cars');
-    // Map<String, dynamic> map1 = jsonDecode(token![0]);
-    // Car car1 = Car.fromJson(map1);
-    // print(car1.licensePlate);
-    // await prefs.setString('car1', car1.licensePlate);
-    // await prefs.setInt('car1Id', car1.id);
-    // Map<String, dynamic> map2 = jsonDecode(token![1]);
-    // Car car2 = Car.fromJson(map2);
-    // print(car1.licensePlate);
-    // await prefs.setString('car2', car2.licensePlate);
-    // await prefs.setInt('car2Id', car2.id);
-
     if (response.statusCode == 200) {
       // Profile profile = Profile.fromJson(json.decode(response.body));
       // print(profile.user.firstName);
@@ -174,15 +134,13 @@ class CallApi {
         print(responseJson);
         await prefs.setString('access', responseJson['access']);
       }
-     // prefs.setString('alreadyloggedin', 'true');
+      // prefs.setString('alreadyloggedin', 'true');
       return 200;
-    }
-    else if (response.statusCode == 401){
+    } else if (response.statusCode == 401) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('loginError', responseJson['detail']);
       return false;
-    }
-    else {
+    } else {
       Map<String, dynamic> responseJson = json.decode(response.body);
       if (responseJson.containsKey('error_code')) {
         return 400;
@@ -202,20 +160,10 @@ class CallApi {
       'Accept': 'application/json',
       'Authorization': 'Token ${accesstoken}',
     });
-
     print(response.statusCode);
     print(response.reasonPhrase);
     print(response.body);
     return Activities.fromJson(json.decode(response.body));
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
   }
 
   postBookNow(data, apiUrl) async {
@@ -233,13 +181,8 @@ class CallApi {
     print(res.body);
     if (res.statusCode == 200) {
       print('sucees');
-      // User.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return res.body;
     }
   }
@@ -259,7 +202,6 @@ class CallApi {
     print(res.body);
     if (res.statusCode == 200) {
       print('sucees');
-      // User.fromJson(jsonDecode(res.body));
       return 200;
     } else {
       if (res.statusCode == 500) {
@@ -290,13 +232,8 @@ class CallApi {
     print(res.body);
     if (res.statusCode == 200) {
       print('sucees');
-      // User.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return false;
     }
   }
@@ -314,23 +251,10 @@ class CallApi {
     print(response.statusCode);
     if (response.statusCode == 200) {
       print('sucees');
-      // User.fromJson(jsonDecode(res.body));
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      //return Exception('Failed to create album.';
       return false;
-    } // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
+    }
   }
 
   Future<http.Response> fetchNotifictions() async {
@@ -343,15 +267,6 @@ class CallApi {
     });
     print(response.body);
     return jsonDecode(response.body);
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
   }
 
   register(data, apiUrl) async {
@@ -361,27 +276,17 @@ class CallApi {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     });
-    print(data);
-    print(res);
-    print(res.statusCode);
-    print(res.reasonPhrase);
     print(res.body);
-
     if (res.body
         .toString()
         .contains('registrationToken already exists in the system')) {
       print(res.reasonPhrase);
     }
-
     if (res.statusCode == 201) {
       print('sucees');
-
-      // User.fromJson(jsonDecode(res.body));
       return 201;
     } else if (res.body.toString().contains(
         'Wrong or Empty data is not allowed for fullName or Email or license_plate')) {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('error',
           'Wrong or Empty data is not allowed for fullName or Email or license_plate');
@@ -417,18 +322,8 @@ class CallApi {
       'Authorization': 'Token ${accesstoken}',
     });
     print(response.body);
-
     var jsonResponse = json.decode(response.body);
     return Profile.fromJson(json.decode(response.body));
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
   }
 
   postExtend(data, apiUrl) async {
@@ -504,18 +399,8 @@ class CallApi {
     print(response.reasonPhrase);
     print(response.statusCode);
     print(response.body);
-
     var jsonResponse = json.decode(response.body);
     return Reservation.fromJson(json.decode(response.body));
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
   }
 
   getOtp(data, apiUrl) async {
@@ -532,7 +417,6 @@ class CallApi {
     print(res.body);
     if (res.statusCode == 200) {
       print('sucees');
-      // User.fromJson(jsonDecode(res.body));
       return 200;
     } else {
       if (res.statusCode == 500) {
@@ -567,7 +451,7 @@ class CallApi {
       print(responseJson);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('access', responseJson['access_token']);
-     // prefs.setString('alreadyloggedin', 'true');
+      // prefs.setString('alreadyloggedin', 'true');
       // User.fromJson(jsonDecode(res.body));
       return 200;
     } else {
@@ -618,24 +502,14 @@ class CallApi {
     var accesstoken = prefs.getString('access');
     print(accesstoken);
     final response =
-    await http.get(Uri.parse(_baseUrl + 'users/get-states/'), headers: {
+        await http.get(Uri.parse(_baseUrl + 'users/get-states/'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       //'Authorization': 'Token ${accesstoken}',
     });
     print(response.body);
-
     var jsonResponse = json.decode(response.body);
     return States.fromJson(json.decode(response.body));
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
   }
 
   Future<Sites> fetchsites() async {
@@ -643,25 +517,13 @@ class CallApi {
     var accesstoken = prefs.getString('access');
     print(accesstoken);
     final response =
-    await http.get(Uri.parse(_baseUrl + 'users/get-sites/'), headers: {
+        await http.get(Uri.parse(_baseUrl + 'users/get-sites/'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       //'Authorization': 'Token ${accesstoken}',
     });
     print(response.body);
-
     var jsonResponse = json.decode(response.body);
     return Sites.fromJson(json.decode(response.body));
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   return Album.fromJson(jsonDecode(response.body));
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
   }
-
-
 }

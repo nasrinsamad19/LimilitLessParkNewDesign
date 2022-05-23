@@ -30,7 +30,7 @@ class _IntroScreenState extends State<IntroScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: height/1.8,
+                height: height / 1.8,
               ),
               Image.asset(
                 'assets/images/white_logo.png',
@@ -40,16 +40,20 @@ class _IntroScreenState extends State<IntroScreen> {
               Text(
                 'Welcome to the',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26.0),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26.0,
+                  fontFamily: 'Roboto',
+                ),
               ),
               Text(
                 'Limitless Parking App',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26.0),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26.0,
+                  fontFamily: 'Roboto',
+                ),
               ),
               SizedBox(
                 height: 60,
@@ -62,8 +66,10 @@ class _IntroScreenState extends State<IntroScreen> {
                   padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [ColorNames().lightBlue,ColorNames().lightBlue]),
+                      gradient: LinearGradient(colors: [
+                        ColorNames().lightBlue,
+                        ColorNames().lightBlue
+                      ]),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Material(
@@ -72,12 +78,17 @@ class _IntroScreenState extends State<IntroScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => GuideScreen()),
+                              MaterialPageRoute(
+                                  builder: (context) => GuideScreen()),
                             );
                           },
                           child: Center(
                             child: Text('Getting Started',
-                                style: TextStyle(color: Colors.white,fontSize: 20)),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'Roboto',
+                                )),
                           )),
                     ),
                   ),

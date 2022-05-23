@@ -22,7 +22,7 @@ class BookNowState extends State<BookNow> {
   TextEditingController dateinputarrival = TextEditingController();
   TextEditingController dateinputDeparture = TextEditingController();
   TextEditingController _timecontroler = TextEditingController();
-  var _selectedDay=DateTime.now();
+  var _selectedDay = DateTime.now();
   var _focusedDay;
   double _startValue = 1.0;
   double _endValue = 5.0;
@@ -36,7 +36,8 @@ class BookNowState extends State<BookNow> {
   var car2Id;
   final _formKey = GlobalKey<FormState>();
   TimeOfDay selectedTime2 = TimeOfDay.now();
-  TimeOfDay selectedTime = TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 1)));
+  TimeOfDay selectedTime =
+      TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 1)));
   DateTime _selectedDate1 = DateTime.now();
   DateTime _selectedDate2 = DateTime.now();
   var oldArrivalTime;
@@ -196,23 +197,27 @@ class BookNowState extends State<BookNow> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(color: ColorNames().blue, fontSize: 15.0),
+                    style: TextStyle(
+                      color: ColorNames().blue,
+                      fontSize: 15.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ],
               ))),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 40,right: 40),
+        padding: EdgeInsets.only(left: 40, right: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Align(
               alignment: Alignment.center,
-              child:  Text(
-                  'Select Date & Time',
+              child: Text('Select Date & Time',
                   style: TextStyle(
-                      color:
-                      ColorNames().blue,
-                      fontSize: 18)),
+                    color: ColorNames().blue,
+                    fontSize: 18,
+                    fontFamily: 'Roboto',
+                  )),
             ),
             SizedBox(
               height: 30,
@@ -222,13 +227,14 @@ class BookNowState extends State<BookNow> {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-          shape: BoxShape.rectangle,
-            boxShadow: [BoxShadow(
-              color: Colors.grey,
-              blurRadius: 5.0,
-            ),]
-              ),
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 5.0,
+                    ),
+                  ]),
               child: TableCalendar(
                 firstDay: DateTime.now(),
                 lastDay: DateTime.utc(2030, 3, 14),
@@ -238,29 +244,36 @@ class BookNowState extends State<BookNow> {
                     color: ColorNames().blue,
                     shape: BoxShape.circle,
                     //borderRadius: BorderRadius.circular(5.0),
-                  ),              ),
+                  ),
+                ),
                 selectedDayPredicate: (day) {
                   return isSameDay(_selectedDay, day);
                 },
-                onDaySelected: !cancel?(selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = focusedDay; // update `_focusedDay` here as well
-                  });
-                  print(_selectedDay);
-                  print(_focusedDay);
-
-                }:null,
+                onDaySelected: !cancel
+                    ? (selectedDay, focusedDay) {
+                        setState(() {
+                          _selectedDay = selectedDay;
+                          _focusedDay =
+                              focusedDay; // update `_focusedDay` here as well
+                        });
+                        print(_selectedDay);
+                        print(_focusedDay);
+                      }
+                    : null,
               ),
-
             ),
             SizedBox(
               height: 20,
             ),
             Padding(
-                padding: EdgeInsets.only(left: 10,right: 0),
-            child: Text('Duration',
-                style: TextStyle(color: Colors.black,fontSize: 15)),),
+              padding: EdgeInsets.only(left: 10, right: 0),
+              child: Text('Duration',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontFamily: 'Roboto',
+                  )),
+            ),
             Slider(
               min: 0.0,
               max: 6.0,
@@ -268,116 +281,137 @@ class BookNowState extends State<BookNow> {
               value: val,
               inactiveColor: ColorNames().blue,
               activeColor: ColorNames().blue,
-              label: val.round().toString()+'Hrs',
-              onChanged: !cancel?(value) {
-                setState(() {
-                  val = value;
-                  print(val);
-                  print(selectedTime2);
-                  selectedTime = TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: val.toInt())));
-                });
-              }:null,
+              label: val.round().toString() + 'Hrs',
+              onChanged: !cancel
+                  ? (value) {
+                      setState(() {
+                        val = value;
+                        print(val);
+                        print(selectedTime2);
+                        selectedTime = TimeOfDay.fromDateTime(
+                            DateTime.now().add(Duration(hours: val.toInt())));
+                      });
+                    }
+                  : null,
             ),
             SizedBox(
               height: 30,
             ),
             Padding(
-                padding: EdgeInsets.only(left: 10,right: 0),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Start Time',
-                            style: TextStyle(color: Colors.black,fontSize: 15)),
-                        Container(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide( color: ColorNames().blue),
-                            ),
-                          ),
-                          height: 40,
-                          child: Row(
-                            children: [
-                              !cancel
-                                  ? Text(
-                                selectedTime2.format(context),
-                                style: TextStyle(color: Colors.black),
-                              )
-                                  : Text(
-                                oldArrivalTime.toString(),
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              IconButton(
-                                icon: !cancel
-                                    ? Icon(
-                                  Icons.access_time,
-                                )
-                                    : Icon(
-                                  Icons.access_time,
-                                  color: Colors.grey,
-                                ),
-                                tooltip: 'Tap to open date picker',
-                                onPressed: () {
-                                  !cancel ? _selectTime2(context) : null;
-                                },
-                              ),
-                            ],
+              padding: EdgeInsets.only(left: 10, right: 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Start Time',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontFamily: 'Roboto',
+                          )),
+                      Container(
+                        padding: const EdgeInsets.only(left: 5, right: 5),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: ColorNames().blue),
                           ),
                         ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('End Time',
-                            style: TextStyle(color: Colors.black,fontSize: 15)),
-                        Container(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide( color: ColorNames().blue),
+                        height: 40,
+                        child: Row(
+                          children: [
+                            !cancel
+                                ? Text(
+                                    selectedTime2.format(context),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Roboto',
+                                    ),
+                                  )
+                                : Text(
+                                    oldArrivalTime.toString(),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontFamily: 'Roboto',
+                                    ),
+                                  ),
+                            IconButton(
+                              icon: !cancel
+                                  ? Icon(
+                                      Icons.access_time,
+                                    )
+                                  : Icon(
+                                      Icons.access_time,
+                                      color: Colors.grey,
+                                    ),
+                              tooltip: 'Tap to open date picker',
+                              onPressed: () {
+                                !cancel ? _selectTime2(context) : null;
+                              },
                             ),
-                          ),
-                          height: 40,
-                          child: Row(
-                            children: [
-                              !cancel
-                                  ? Text(
-                                selectedTime.format(context),
-                                style: TextStyle(color: Colors.black),
-                              )
-                                  : Text(
-                                oldDTime,
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              IconButton(
-                                icon: !cancel
-                                    ? Icon(Icons.access_time)
-                                    : Icon(
-                                  Icons.access_time,
-                                  color: Colors.grey,
-                                ),
-                                tooltip: 'Tap to open date picker',
-                                onPressed: () {
-                                  //!cancel ? _selectTime1(context) : null;
-                                },
-                              ),
-                            ],
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('End Time',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontFamily: 'Roboto',
+                          )),
+                      Container(
+                        padding: const EdgeInsets.only(left: 5, right: 5),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: ColorNames().blue),
                           ),
                         ),
-                      ],
-                    )
-                  ],
-                ),
-
+                        height: 40,
+                        child: Row(
+                          children: [
+                            !cancel
+                                ? Text(
+                                    selectedTime.format(context),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Roboto',
+                                    ),
+                                  )
+                                : Text(
+                                    oldDTime,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontFamily: 'Roboto',
+                                    ),
+                                  ),
+                            IconButton(
+                              icon: !cancel
+                                  ? Icon(Icons.access_time)
+                                  : Icon(
+                                      Icons.access_time,
+                                      color: Colors.grey,
+                                    ),
+                              tooltip: 'Tap to open date picker',
+                              onPressed: () {
+                                //!cancel ? _selectTime1(context) : null;
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 30,
             ),
-
           ],
         ),
       ),
@@ -394,7 +428,8 @@ class BookNowState extends State<BookNow> {
       //                 style: TextStyle(
       //                     color: Colors.black,
       //                     fontSize: 20,
-      //                     fontWeight: FontWeight.bold),
+      //                     fontWeight: FontWeight.bold,
+      //                     fontFamily: 'Roboto',),
       //               ),
       //             ),
       //       signUpForm(context),
@@ -420,7 +455,7 @@ class BookNowState extends State<BookNow> {
                       onTap: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        var license_plate= prefs.getString('selectedCar');
+                        var license_plate = prefs.getString('selectedCar');
 
                         var data = {"license_plate": license_plate};
                         CallApi()
@@ -448,7 +483,10 @@ class BookNowState extends State<BookNow> {
                       },
                       child: Center(
                         child: Text('CANCEL BOOKING',
-                            style: TextStyle(color: Colors.white)),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto',
+                            )),
                       )),
                 ),
               ),
@@ -481,28 +519,32 @@ class BookNowState extends State<BookNow> {
                       },
                       child: Center(
                         child: Text('BOOK NOW',
-                            style: TextStyle(color: Colors.white)),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto',
+                            )),
                       )),
                 ),
               ),
             ),
     );
   }
-  validate(){
-    double dTime= selectedTime.hour + selectedTime.minute/60.0;
+
+  validate() {
+    double dTime = selectedTime.hour + selectedTime.minute / 60.0;
     TimeOfDay currentTime = TimeOfDay.now();
     print(currentTime);
-    double aTime= selectedTime2.hour + selectedTime2.minute/60.0;
-    double cTime =  currentTime.hour + currentTime.minute/60.0;
+    double aTime = selectedTime2.hour + selectedTime2.minute / 60.0;
+    double cTime = currentTime.hour + currentTime.minute / 60.0;
     var diff = aTime - dTime;
-    var buffer = aTime-cTime;
+    var buffer = aTime - cTime;
     // print(aTime);
     // print(cTime);
     // print(dTime);
     // print(buffer);
     // print('diff');
     // print(aTime>cTime);
-    if(aTime<cTime){
+    if (aTime < cTime) {
       showDialog(
         context: context,
         builder: (BuildContext context) =>
@@ -535,8 +577,9 @@ class BookNowState extends State<BookNow> {
     var fdate = date2.toString().split(" ").elementAt(1);
     print(dateinputarrival.text);
     print(_selectedDay.toString().split(" ").elementAt(0));
-    var finalDate =
-        DateTime.parse(_selectedDay.toString().split(" ").elementAt(0) + ' ' + fdate).toIso8601String();
+    var finalDate = DateTime.parse(
+            _selectedDay.toString().split(" ").elementAt(0) + ' ' + fdate)
+        .toIso8601String();
     print(finalDate);
     print(date2);
 
@@ -545,16 +588,16 @@ class BookNowState extends State<BookNow> {
     print(date);
     DateTime adate2 = DateFormat.jm().parse(adate);
     var ardate = adate2.toString().split(" ").elementAt(1);
-    var finalADate =
-        DateTime.parse(_selectedDay.toString().split(" ").elementAt(0)+ ' ' + ardate).toIso8601String();
+    var finalADate = DateTime.parse(
+            _selectedDay.toString().split(" ").elementAt(0) + ' ' + ardate)
+        .toIso8601String();
     print(finalADate);
     print(finalDate);
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    var car_license_plate= prefs.getString('selectedCar');
+    var car_license_plate = prefs.getString('selectedCar');
     var site = prefs.getString('site');
     var state = prefs.getString('state');
-
 
     var data = {
       "license_plate": car_license_plate,
@@ -609,298 +652,4 @@ class BookNowState extends State<BookNow> {
       ],
     );
   }
-
-  // Widget signUpForm(BuildContext context) {
-  //   double width = MediaQuery.of(context).size.width;
-  //   return Form(
-  //       key: _formKey,
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           Text(
-  //             'Arrival',
-  //             style: TextStyle(color: Colors.black, fontSize: 15.0),
-  //           ),
-  //           SizedBox(
-  //             height: 5,
-  //           ),
-  //           // Container(
-  //           //   height: 40,
-  //           //   child: TextFormField(
-  //           //     enabled: !cancel?true:false,
-  //           //     decoration: InputDecoration(
-  //           //       enabledBorder: OutlineInputBorder(
-  //           //         borderSide: BorderSide(color: ColorNames().grey),
-  //           //       ),
-  //           //       border: OutlineInputBorder(
-  //           //         borderSide: BorderSide(color: ColorNames().grey),
-  //           //       ),
-  //           //       hintText: DateTime.now().toString(),
-  //           //       hintStyle:
-  //           //       TextStyle(color: Colors.black, fontSize: 10.0),
-  //           //     ),
-  //           //     style: TextStyle(color: Colors.black, fontSize: 12.0),
-  //           //     controller: dateinputarrival,
-  //           //     //initialValue: _selectedDate1,
-  //           //     validator: (val) {
-  //           //       Pattern pattern =
-  //           //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-  //           //       RegExp regex = RegExp(pattern.toString());
-  //           //       if (val!.isEmpty) {
-  //           //         return 'Please enter email';
-  //           //       } else {
-  //           //         if (!regex.hasMatch(val)) {
-  //           //           return 'Invalid Email';
-  //           //         }
-  //           //       }
-  //           //     },
-  //           //     //onSaved: (input)=> loginRequestModel.email= input.toString(),
-  //           //   ),
-  //           // ),
-  //           Row(
-  //             children: [
-  //               Container(
-  //                 padding: const EdgeInsets.only(left: 5, right: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(color: ColorNames().grey),
-  //                 ),
-  //                 height: 40,
-  //                 child: Row(
-  //                   children: [
-  //                     !cancel
-  //                         ? Text(
-  //                             dateinputarrival.text,
-  //                             style: TextStyle(color: Colors.black),
-  //                           )
-  //                         : Text(
-  //                             dateinputarrival.text,
-  //                             style: TextStyle(color: Colors.grey),
-  //                           ),
-  //                     IconButton(
-  //                       icon: !cancel
-  //                           ? Icon(Icons.calendar_today)
-  //                           : Icon(
-  //                               Icons.calendar_today,
-  //                               color: Colors.grey,
-  //                             ),
-  //                       tooltip: 'Tap to open date picker',
-  //                       onPressed: () {
-  //                         !cancel ? _selectDate2(context) : null;
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 width: 20,
-  //               ),
-  //               Container(
-  //                 padding: const EdgeInsets.only(left: 5, right: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(color: ColorNames().grey),
-  //                 ),
-  //                 height: 40,
-  //                 child: Row(
-  //                   children: [
-  //                     !cancel
-  //                         ? Text(
-  //                             selectedTime2.format(context),
-  //                             style: TextStyle(color: Colors.black),
-  //                           )
-  //                         : Text(
-  //                             oldArrivalTime.toString(),
-  //                             style: TextStyle(color: Colors.grey),
-  //                           ),
-  //                     IconButton(
-  //                       icon: !cancel
-  //                           ? Icon(
-  //                               Icons.access_time,
-  //                             )
-  //                           : Icon(
-  //                               Icons.access_time,
-  //                               color: Colors.grey,
-  //                             ),
-  //                       tooltip: 'Tap to open date picker',
-  //                       onPressed: () {
-  //                         !cancel ? _selectTime2(context) : null;
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(
-  //             height: 20,
-  //           ),
-  //           Text(
-  //             'Departure',
-  //             style: TextStyle(color: Colors.black, fontSize: 15.0),
-  //           ),
-  //           SizedBox(
-  //             height: 5,
-  //           ),
-  //           Row(
-  //             children: [
-  //               Container(
-  //                 padding: const EdgeInsets.only(left: 5, right: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(color: ColorNames().grey),
-  //                 ),
-  //                 height: 40,
-  //                 child: Row(
-  //                   children: [
-  //                     !cancel
-  //                         ? Text(
-  //                             dateinputDeparture.text,
-  //                             style: TextStyle(color: Colors.black),
-  //                           )
-  //                         : Text(
-  //                             dateinputDeparture.text,
-  //                             style: TextStyle(color: Colors.grey),
-  //                           ),
-  //                     IconButton(
-  //                       icon: !cancel
-  //                           ? Icon(Icons.calendar_today)
-  //                           : Icon(
-  //                               Icons.calendar_today,
-  //                               color: Colors.grey,
-  //                             ),
-  //                       tooltip: 'Tap to open date picker',
-  //                       onPressed: () {
-  //                         !cancel ? _selectDate1(context) : null;
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 width: 20,
-  //               ),
-  //               Container(
-  //                 padding: const EdgeInsets.only(left: 5, right: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(color: ColorNames().grey),
-  //                 ),
-  //                 height: 40,
-  //                 child: Row(
-  //                   children: [
-  //                     !cancel
-  //                         ? Text(
-  //                             selectedTime.format(context),
-  //                             style: TextStyle(color: Colors.black),
-  //                           )
-  //                         : Text(
-  //                             oldDTime,
-  //                             style: TextStyle(color: Colors.grey),
-  //                           ),
-  //                     IconButton(
-  //                       icon: !cancel
-  //                           ? Icon(Icons.access_time)
-  //                           : Icon(
-  //                               Icons.access_time,
-  //                               color: Colors.grey,
-  //                             ),
-  //                       tooltip: 'Tap to open date picker',
-  //                       onPressed: () {
-  //                         !cancel ? _selectTime1(context) : null;
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           // Container(
-  //           //   height: 40,
-  //           //   child: TextFormField(
-  //           //     enabled: !cancel?true:false,
-  //           //     decoration: InputDecoration(
-  //           //       enabledBorder: OutlineInputBorder(
-  //           //         borderSide: BorderSide(color: ColorNames().grey),
-  //           //       ),
-  //           //       border: OutlineInputBorder(
-  //           //         borderSide: BorderSide(color: ColorNames().grey),
-  //           //       ),
-  //           //       hintText: DateTime.now().toString(),
-  //           //       hintStyle:
-  //           //       TextStyle(color: ColorNames().grey, fontSize: 10.0),
-  //           //     ),
-  //           //     style: TextStyle(color: Colors.black, fontSize: 12.0),
-  //           //     controller: dateinputDeparture,
-  //           //     //initialValue: _selectedDate1,
-  //           //     validator: (val) {
-  //           //       Pattern pattern =
-  //           //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-  //           //       RegExp regex = RegExp(pattern.toString());
-  //           //       if (val!.isEmpty) {
-  //           //         return 'Please enter email';
-  //           //       } else {
-  //           //         if (!regex.hasMatch(val)) {
-  //           //           return 'Invalid Email';
-  //           //         }
-  //           //       }
-  //           //     },
-  //           //     //onSaved: (input)=> loginRequestModel.email= input.toString(),
-  //           //   ),
-  //           // ),
-  //           SizedBox(
-  //             height: 20,
-  //           ),
-  //           Text(
-  //             'Car',
-  //             style: TextStyle(color: Colors.black, fontSize: 15.0),
-  //           ),
-  //           SizedBox(
-  //             height: 5,
-  //           ),
-  //           Container(
-  //             height: 40,
-  //             width: width / 3,
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(5),
-  //               border: Border.all(color: ColorNames().grey),
-  //             ),
-  //             padding: EdgeInsets.all(8),
-  //             child: DropdownButton(
-  //               isExpanded: true,
-  //               borderRadius: BorderRadius.circular(5),
-  //               underline: Container(),
-  //               style: !cancel
-  //                   ? TextStyle(color: Colors.black, fontSize: 12)
-  //                   : TextStyle(color: Colors.grey, fontSize: 12),
-  //
-  //               // Initial Value
-  //               value: dropdownvalue,
-  //               hint: Text('Select your car',
-  //                   style: TextStyle(color: Colors.black, fontSize: 12)),
-  //
-  //               // Down Arrow Icon
-  //               icon: const Icon(Icons.keyboard_arrow_down),
-  //
-  //               // Array list of items
-  //               items: items.map((var items) {
-  //                 return DropdownMenuItem<String>(
-  //                   value: items,
-  //                   child: !cancel
-  //                       ? Text(items,
-  //                           style: TextStyle(color: Colors.black, fontSize: 12))
-  //                       : Text(items,
-  //                           style: TextStyle(color: Colors.grey, fontSize: 12)),
-  //                 );
-  //               }).toList(),
-  //               // After selecting the desired option,it will
-  //               // change button value to selected value
-  //               onChanged: !cancel
-  //                   ? (newValue) {
-  //                       setState(() {
-  //                         dropdownvalue = newValue! as String?;
-  //                       });
-  //                     }
-  //                   : null,
-  //             ),
-  //           )
-  //         ],
-  //       ));
-  // }
 }

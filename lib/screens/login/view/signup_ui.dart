@@ -97,33 +97,22 @@ class _SignUpState extends State<SignUp> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        // color: Colors.white,
-                        //  height: 50,
-                        //  width: 50,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
                               width: 10,
                             ),
-                            // GestureDetector(
-                            //   behavior: HitTestBehavior.translucent,
-                            //   onTap: () {
-                            //     Navigator.pop(context);
-                            //   },
-                            //   child: Icon(
-                            //     Icons.arrow_back_ios,
-                            //     color: Colors.white,
-                            //     size: 15,
-                            //   ),
-                            // ),
                             SizedBox(
                               width: 0,
                             ),
                             Text(
                               'register your account'.toUpperCase(),
                               style: TextStyle(
-                                  color: ColorNames().blue, fontSize: 15.0),
+                                color: ColorNames().blue,
+                                fontSize: 15.0,
+                                fontFamily: 'Roboto',
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -215,7 +204,10 @@ class _SignUpState extends State<SignUp> {
                                   },
                                   child: Center(
                                     child: Text('next'.toUpperCase(),
-                                        style: TextStyle(color: Colors.white)),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Roboto',
+                                        )),
                                   )),
                             ),
                           ),
@@ -305,7 +297,11 @@ class _SignUpState extends State<SignUp> {
                         alignment: Alignment.center,
                         child: Text(
                           'Already have an account?'.toUpperCase(),
-                          style: TextStyle(color: ColorNames().blue, fontSize: 12),
+                          style: TextStyle(
+                            color: ColorNames().blue,
+                            fontSize: 12,
+                            fontFamily: 'Roboto',
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -335,7 +331,10 @@ class _SignUpState extends State<SignUp> {
                                   child: Center(
                                     child: Text('log in'.toUpperCase(),
                                         style: TextStyle(
-                                            color: ColorNames().blue, fontSize: 16)),
+                                          color: ColorNames().blue,
+                                          fontSize: 16,
+                                          fontFamily: 'Roboto',
+                                        )),
                                   )),
                             ),
                           ),
@@ -365,6 +364,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     color: ColorNames().blue,
                     fontSize: 15,
+                    fontFamily: 'Roboto',
                   )),
             ),
             Container(
@@ -376,9 +376,17 @@ class _SignUpState extends State<SignUp> {
                     borderSide: BorderSide(color: ColorNames().blue),
                   ),
                   hintText: 'Enter your first name here',
-                  hintStyle: TextStyle(color: ColorNames().blue, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: fnameController,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -429,6 +437,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     color: ColorNames().blue,
                     fontSize: 15,
+                    fontFamily: 'Roboto',
                   )),
             ),
             Container(
@@ -439,9 +448,17 @@ class _SignUpState extends State<SignUp> {
                     borderSide: BorderSide(color: ColorNames().blue),
                   ),
                   hintText: ' Type your email here',
-                  hintStyle: TextStyle(color: ColorNames().blue, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: emailController,
                 validator: (val) {
                   Pattern pattern =
@@ -467,6 +484,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     color: ColorNames().blue,
                     fontSize: 15,
+                    fontFamily: 'Roboto',
                   )),
             ),
             Container(
@@ -478,9 +496,17 @@ class _SignUpState extends State<SignUp> {
                     borderSide: BorderSide(color: ColorNames().blue),
                   ),
                   hintText: 'Type your password here ',
-                  hintStyle: TextStyle(color: ColorNames().blue, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: passwordController,
                 validator: (val) => validatePassword(val.toString()),
                 onSaved: (val) => password = val.toString(),
@@ -493,6 +519,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     color: ColorNames().blue,
                     fontSize: 15,
+                    fontFamily: 'Roboto',
                   )),
             ),
             Container(
@@ -504,9 +531,17 @@ class _SignUpState extends State<SignUp> {
                     borderSide: BorderSide(color: ColorNames().blue),
                   ),
                   hintText: 'Confirm your password here',
-                  hintStyle: TextStyle(color: ColorNames().blue, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: correctPasswordController,
                 validator: (val) => validateConfirmPassword(val.toString()),
               ),
@@ -523,7 +558,7 @@ class _SignUpState extends State<SignUp> {
         'Error',
         style: TextStyle(
           fontSize: 15,
-          fontFamily: 'Montserrat',
+          fontFamily: 'Roboto',
         ),
       ),
       actions: [
@@ -538,7 +573,7 @@ class _SignUpState extends State<SignUp> {
               'OK',
               style: TextStyle(
                   fontSize: 15,
-                  fontFamily: 'Montserrat',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ))

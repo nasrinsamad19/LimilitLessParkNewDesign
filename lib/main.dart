@@ -1,35 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:limitlesspark_new/screens/api/api.dart';
 import 'package:limitlesspark_new/screens/book_now/view/book_now-ui.dart';
-import 'package:limitlesspark_new/screens/car_registration/view/car_registration_ui.dart';
-import 'package:limitlesspark_new/screens/guide/welcome_screen.dart';
-// import 'package:limitlesspark_new/screens/splash_screen.dart';
-//
-// void main() {
-//   runApp( MyApp());
-// }
-//
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Web Views',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//         fontFamily: "Arial",
-//       ),
-//       home: Splashcreen(),
-//     );
-//   }
-// }
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:limitlesspark_new/screens/notifiction/view/notification_ui.dart';
-import 'package:limitlesspark_new/screens/site_list/view/site_list_ui.dart';
 import 'package:limitlesspark_new/screens/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,7 +38,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 );
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +47,7 @@ void main() async {
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -100,9 +75,9 @@ class MyAppState extends State<MyApp> {
     loggedinfn();
 
     var initialzationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettings =
-    InitializationSettings(android: initialzationSettingsAndroid);
+        InitializationSettings(android: initialzationSettingsAndroid);
 
     flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -257,13 +232,6 @@ class MyAppState extends State<MyApp> {
     //getnotification();
   }
 
-  //  popup() {
-  //    showDialog(
-  //      context: context,
-  //      builder: (BuildContext context) => _buildPopupDialog(context,test),
-  //    );
-  // }
-
   var body;
   var id;
   var title;
@@ -274,18 +242,6 @@ class MyAppState extends State<MyApp> {
   var list;
 
   void getnotification() async {
-    // WidgetsFlutterBinding.ensureInitialized();
-    // await Firebase.initializeApp();
-    // FirebaseMessaging.instance.getInitialMessage();
-    //
-    // FirebaseMessaging.onMessage.listen((message) async {
-    //   if (message.notification != null) {
-    //     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //     id = prefs.getString('ID');
-    //
-    //
-    //   }
-    // });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     list = prefs.getStringList('name');
     print(list);
@@ -301,17 +257,6 @@ class MyAppState extends State<MyApp> {
     });
     title = prefs.getString('title');
     id = prefs.getString('ID');
-
-    // if (id == carId1 && id !=null) {
-    //   setState(() {
-    //     body = prefs.getString('body');
-    //   });
-    //   print('ddd' + body);
-    // }
-    // if (id == carId2) {
-    //   body = prefs.getString('body');
-    //   print(body);
-    // }
   }
 
   NewToken() {
@@ -379,11 +324,7 @@ class MyAppState extends State<MyApp> {
             var car = prefs.getString('plateNo');
             var site = prefs.getString('Nsite');
             var state = prefs.getString('Nstate');
-            var data = {
-              "license_plate": car,
-            "state": state,
-            "site": site
-            };
+            var data = {"license_plate": car, "state": state, "site": site};
             CallApi()
                 .postExtend(data, 'reservations/extend/')
                 .then((value) async {
@@ -410,11 +351,7 @@ class MyAppState extends State<MyApp> {
             var car = prefs.getString('plateNo');
             var site = prefs.getString('Nsite');
             var state = prefs.getString('Nstate');
-            var data = {
-              "license_plate": car,
-              "state": state,
-              "site": site
-            };
+            var data = {"license_plate": car, "state": state, "site": site};
             CallApi()
                 .postCancel(data, 'reservations/cancel/')
                 .then((value) async {
@@ -447,9 +384,8 @@ class MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-       home: Splashcreen()
-      //home: Site_list(),
-    );
+        home: Splashcreen()
+        //home: Site_list(),
+        );
   }
 }
-

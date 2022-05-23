@@ -79,7 +79,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(color: Colors.white, fontSize: 19.0),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 19.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ],
               ))),
@@ -115,8 +119,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                     }
                   },
                   child: Center(
-                    child:
-                        Text('Submit', style: TextStyle(color: Colors.white)),
+                    child: Text('Submit',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                        )),
                   )),
             ),
           ),
@@ -192,6 +199,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15,
+                    fontFamily: 'Roboto',
                   )),
             ),
             Container(
@@ -203,9 +211,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                     borderSide: BorderSide(color: Colors.black),
                   ),
                   hintText: 'Type your password here ',
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: passwordController,
                 validator: (val) => validatePassword(val.toString()),
                 //onSaved: (val) => password = val.toString(),
@@ -218,6 +234,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15,
+                    fontFamily: 'Roboto',
                   )),
             ),
             Container(
@@ -229,9 +246,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                     borderSide: BorderSide(color: Colors.black),
                   ),
                   hintText: 'Confirm your password here',
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: correctPasswordController,
                 validator: (val) => validateConfirmPassword(val.toString()),
               ),

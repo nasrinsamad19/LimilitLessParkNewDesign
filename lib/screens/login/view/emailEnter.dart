@@ -47,7 +47,11 @@ class _EmailEnterUIState extends State<EmailEnterUI> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(color: Colors.white, fontSize: 19.0),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 19.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ],
               ))),
@@ -82,8 +86,11 @@ class _EmailEnterUIState extends State<EmailEnterUI> {
                     }
                   },
                   child: Center(
-                    child:
-                        Text('Submit', style: TextStyle(color: Colors.white)),
+                    child: Text('Submit',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                        )),
                   )),
             ),
           ),
@@ -105,6 +112,7 @@ class _EmailEnterUIState extends State<EmailEnterUI> {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
+                  fontFamily: 'Roboto',
                 )),
           ),
           Container(
@@ -115,9 +123,17 @@ class _EmailEnterUIState extends State<EmailEnterUI> {
                   borderSide: BorderSide(color: Colors.black),
                 ),
                 hintText: 'Type your email here',
-                hintStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                hintStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 10.0,
+                  fontFamily: 'Roboto',
+                ),
               ),
-              style: TextStyle(color: Colors.black, fontSize: 12.0),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
               controller: emailController,
               validator: (val) {
                 Pattern pattern =

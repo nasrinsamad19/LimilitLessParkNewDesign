@@ -4,7 +4,6 @@ class ColorNames {
   Color maroon = Color.fromRGBO(212, 0, 42, 1);
   Color lightBlue = const Color(0xff52C1FF);
   Color darkBlue = const Color(0xff142b47);
-  //Color lightBlue = const Color(0xff6a9ed4);
   Color blue = const Color(0xff144374);
   Color grey = const Color(0xffADADAD);
   Color offwhite = const Color(0xffF9F9F9);

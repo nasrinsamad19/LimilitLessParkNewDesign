@@ -20,7 +20,6 @@ class _intro_uiState extends State<intro_ui> {
         body: Container(
       height: height,
       width: width,
-
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,16 +35,20 @@ class _intro_uiState extends State<intro_ui> {
             Text(
               'Welcome to the'.toUpperCase(),
               style: TextStyle(
-                  color: ColorNames().blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.0),
+                color: ColorNames().blue,
+                fontWeight: FontWeight.bold,
+                fontSize: 13.0,
+                fontFamily: 'Roboto',
+              ),
             ),
             Text(
               'Limitless Park'.toUpperCase(),
               style: TextStyle(
-                  color: ColorNames().blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0),
+                color: ColorNames().blue,
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0,
+                fontFamily: 'Roboto',
+              ),
             ),
             SizedBox(
               height: 50,
@@ -103,30 +106,6 @@ class _intro_uiState extends State<intro_ui> {
                 ),
               ),
             ),
-            // GestureDetector(
-            //   child: RichText(
-            //     text: new TextSpan(
-            //       // Note: Styles for TextSpans must be explicitly defined.
-            //       // Child text spans will inherit styles from parent
-            //       style: new TextStyle(
-            //         fontSize: 14.0,
-            //         color: Colors.black,
-            //       ),
-            //       children: <TextSpan>[
-            //         new TextSpan(
-            //           text: 'Forgot your password?'.toUpperCase(),
-            //           style: TextStyle(
-            //               color: Colors.white,
-            //               fontWeight: FontWeight.bold,
-            //               fontSize: 13.0),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     otpVerify();
-            //   },
-            // )
           ],
         ),
       ),

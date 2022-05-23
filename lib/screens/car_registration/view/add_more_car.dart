@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:limitlesspark_new/screens/api/api.dart';
+import 'package:limitlesspark_new/screens/car_registration/model/model.dart';
 import 'package:limitlesspark_new/screens/common/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,7 +14,6 @@ class AddMoreCar extends StatefulWidget {
 }
 
 class _AddMoreCarState extends State<AddMoreCar> {
-
   TextEditingController car1Controller = TextEditingController();
   TextEditingController car2Controller = TextEditingController();
   TextEditingController v1Controller = TextEditingController();
@@ -29,42 +31,127 @@ class _AddMoreCarState extends State<AddMoreCar> {
   String selectedCategoryValue2 = "Private";
   String selectedPlateValue2 = 'A';
   bool addMore = false;
+  late List<DropdownMenuItem<States>> _dropdownMenuItems;
 
   TextEditingController plateNoController = TextEditingController();
 
-
-  List<DropdownMenuItem<String>> get dropdownEmiratesItems{
+  List<DropdownMenuItem<String>> get dropdownEmiratesItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Dubai"),value: "Dubai"),
-      DropdownMenuItem(child: Text("Abu Dhabi"),value: "Abu_Dhabi"),
-      DropdownMenuItem(child: Text("Sharjah"),value: "Sharjah"),
-      DropdownMenuItem(child: Text("Ajman"),value: "Ajman"),
-      DropdownMenuItem(child: Text("Umm Al Quwain"),value: "Umm_Al_Quwain"),
-      DropdownMenuItem(child: Text("Ras Al Khaimah"),value: "Ras_Al_Khaimah"),
-      DropdownMenuItem(child: Text("Fujairah"),value: "Fujairah"),
-
+      DropdownMenuItem(child: Text("Dubai"), value: "Dubai"),
+      DropdownMenuItem(child: Text("Abu Dhabi"), value: "Abu_Dhabi"),
+      DropdownMenuItem(child: Text("Sharjah"), value: "Sharjah"),
+      DropdownMenuItem(child: Text("Ajman"), value: "Ajman"),
+      DropdownMenuItem(child: Text("Umm Al Quwain"), value: "Umm_Al_Quwain"),
+      DropdownMenuItem(child: Text("Ras Al Khaimah"), value: "Ras_Al_Khaimah"),
+      DropdownMenuItem(child: Text("Fujairah"), value: "Fujairah"),
     ];
     return menuItems;
   }
 
-  List<String> abu_Dhabi = [ '1', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16' , '17', '50'];
+  List<String> abu_Dhabi = [
+    '1',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '50'
+  ];
 
-  List<String> dubai = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N' , 'O', 'P','Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'];
-  List<String> ajman = [ 'A', 'B', 'C', 'D', 'E', 'H'];
-  List<String> Fujairah = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G','K','M','P','R','S','T'];
-  List<String>   Ras_Al_Khaimah = [ 'A', 'C', 'D', 'I', 'K', 'M','N','S','V','Y'];
-  List<String> Sharjah = [ '1', '2', '3',];
-  List<String>   Umm_al_Quwain = [ 'A','B', 'C', 'D','E','F','G','H' 'I', 'X'];
+  List<String> dubai = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+    'AA'
+  ];
+  List<String> ajman = ['A', 'B', 'C', 'D', 'E', 'H'];
+  List<String> Fujairah = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'K',
+    'M',
+    'P',
+    'R',
+    'S',
+    'T'
+  ];
+  List<String> Ras_Al_Khaimah = [
+    'A',
+    'C',
+    'D',
+    'I',
+    'K',
+    'M',
+    'N',
+    'S',
+    'V',
+    'Y'
+  ];
+  List<String> Sharjah = [
+    '1',
+    '2',
+    '3',
+  ];
+  List<String> Umm_al_Quwain = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H' 'I',
+    'X'
+  ];
 
-  List<DropdownMenuItem<String>> get dropdownCategoryItems{
+  List<DropdownMenuItem<String>> get dropdownCategoryItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Private"),value: "Private"),
+      DropdownMenuItem(child: Text("Private"), value: "Private"),
     ];
     return menuItems;
   }
+
   var email;
   var name;
   var car;
+  var dataList;
 
   @override
   void initState() {
@@ -72,12 +159,13 @@ class _AddMoreCarState extends State<AddMoreCar> {
     //fetchdata();
 
     super.initState();
-    var futureData = CallApi().fetchprofile().then((value) {
-
-      email = value.email;
-      name = value.fullName;
+    CallApi().fetchstates().then((value) {
+      setState(() {
+        print(value.states);
+        dataList = value.states;
+        print(dataList[0].stateName);
+      });
     });
-
   }
 
   @override
@@ -85,8 +173,8 @@ class _AddMoreCarState extends State<AddMoreCar> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body:  SingleChildScrollView(
-        padding: EdgeInsets.only(left: 50,right: 50),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(left: 50, right: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,13 +188,21 @@ class _AddMoreCarState extends State<AddMoreCar> {
                 'assets/images/logo.png',
                 width: 150,
                 height: 100,
-              ),),
+              ),
+            ),
             SizedBox(
               height: 15,
             ),
             Align(
               alignment: Alignment.center,
-              child:Text('Vehicle details'.toUpperCase(), style: TextStyle(color: ColorNames().blue,fontSize: 20.0),),
+              child: Text(
+                'Vehicle details'.toUpperCase(),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 20.0,
+                  fontFamily: 'Roboto',
+                ),
+              ),
             ),
             SizedBox(
               height: 15,
@@ -117,34 +213,38 @@ class _AddMoreCarState extends State<AddMoreCar> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child:Container(
-                height: height/12,
-                width: width/1.6,
+              child: Container(
+                height: height / 12,
+                width: width / 1.6,
                 padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: ColorNames().blue),
                       borderRadius: BorderRadius.circular(20),
-                      color: ColorNames().blue
-                  ),
+                      color: ColorNames().blue),
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
                         onTap: () async {
-                          if(car1Controller.text.isNotEmpty){
+                          if (car1Controller.text.isNotEmpty) {
                             _update();
-                          }  else {
+                          } else {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) =>
-                                  _buildPopupDialog(context, 'Enter plate Number'),
+                                  _buildPopupDialog(
+                                      context, 'Enter plate Number'),
                             );
                           }
                           // setcar();
                         },
                         child: Center(
                           child: Text('Add',
-                              style: TextStyle(color: Colors.white,fontSize: 16)),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                              )),
                         )),
                   ),
                 ),
@@ -153,9 +253,9 @@ class _AddMoreCarState extends State<AddMoreCar> {
           ],
         ),
       ),
-
     );
   }
+
   Widget signUpForm(BuildContext context) {
     return Form(
         key: _formKey,
@@ -166,7 +266,14 @@ class _AddMoreCarState extends State<AddMoreCar> {
             SizedBox(
               height: 25,
             ),
-            Text('Vehicle Name', style: TextStyle(color: ColorNames().blue,fontSize: 12.0),),
+            Text(
+              'Vehicle Name',
+              style: TextStyle(
+                color: ColorNames().blue,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
+            ),
             Container(
               height: 50,
               child: TextFormField(
@@ -177,9 +284,17 @@ class _AddMoreCarState extends State<AddMoreCar> {
                   ),
                   counterText: "",
                   hintText: 'Type here',
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: v1Controller,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -192,9 +307,20 @@ class _AddMoreCarState extends State<AddMoreCar> {
             SizedBox(
               height: 25,
             ),
-            Text('Emirates', style: TextStyle(color: ColorNames().blue,fontSize: 12.0),),
+            Text(
+              'Emirates',
+              style: TextStyle(
+                color: ColorNames().blue,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
+            ),
             DropdownButtonFormField(
-              style: TextStyle(color: Colors.black, fontSize: 12.0),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: ColorNames().blue),
@@ -205,33 +331,48 @@ class _AddMoreCarState extends State<AddMoreCar> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedEmiratesValue = newValue!;
-                  if(selectedEmiratesValue=='Abu_Dhabi'||selectedEmiratesValue=='Sharjah'){
+                  if (selectedEmiratesValue == 'Abu_Dhabi' ||
+                      selectedEmiratesValue == 'Sharjah') {
                     selectedPlateValue = '1';
                   }
                 });
                 print(selectedEmiratesValue);
-
               },
               items: dropdownEmiratesItems,
-              //   items: dataList.map((value) {
-              //     return DropdownMenuItem<String>(
-              //       value: value['state_name'].toString(),
-              //       child: Text(value['state_name']),
-              //     );
-              //   }).toList()
+              //    items: dataList.map<String>((item) => DropdownMenuItem<String>(
+              //        value:item['state_name'],
+              //        child: Text(item['state_name'].toString()
+              //    )
+              //    )
+              //    )
             ),
             SizedBox(
               height: 25,
             ),
-            Text('Plate Category', style: TextStyle(color: ColorNames().blue,fontSize: 12.0),),
+            Text(
+              'Plate Category',
+              style: TextStyle(
+                color: ColorNames().blue,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
+            ),
             DropdownButtonFormField(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: ColorNames().blue),
                   ),
                   hintText: 'Enter your first name here',
-                  hintStyle: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontSize: 12.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
                 //dropdownColor: Colors.blueAccent,
                 value: selectedCategoryValue,
@@ -244,67 +385,92 @@ class _AddMoreCarState extends State<AddMoreCar> {
             SizedBox(
               height: 25,
             ),
-            Text('Plate Code', style: TextStyle(color: ColorNames().blue,fontSize: 12.0),),
+            Text(
+              'Plate Code',
+              style: TextStyle(
+                color: ColorNames().blue,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
+            ),
             DropdownButton(
-              itemHeight:50,
+              itemHeight: 50,
               isExpanded: false,
-              style: TextStyle(color: Colors.black, fontSize: 12.0),
-              underline:  Container( height: 1, color: ColorNames().blue,),
-              // decoration: InputDecoration(
-              //   enabledBorder: UnderlineInputBorder(
-              //     borderSide: BorderSide(color: ColorNames().blue),
-              //   ),
-              //   hintText: 'select option',
-              //   hintStyle: TextStyle(color: ColorNames().blue, fontSize: 12.0),
-              // ),
-              //dropdownColor: Colors.blueAccent,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
+              underline: Container(
+                height: 1,
+                color: ColorNames().blue,
+              ),
               value: selectedPlateValue,
               onChanged: (String? newValue) {
                 setState(() {
                   selectedPlateValue = newValue!;
                 });
               },
-              items: selectedEmiratesValue=='Dubai'?dubai.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList():selectedEmiratesValue=='Abu_Dhabi'?abu_Dhabi.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList():selectedEmiratesValue=='Sharjah'?Sharjah.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList():selectedEmiratesValue=='Ajman'?ajman.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList():selectedEmiratesValue=='Umm_Al_Quwain'?Umm_al_Quwain.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList():selectedEmiratesValue=='Ras_Al_Khaimah'?Ras_Al_Khaimah.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList():Fujairah.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+              items: selectedEmiratesValue == 'Dubai'
+                  ? dubai.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList()
+                  : selectedEmiratesValue == 'Abu_Dhabi'
+                      ? abu_Dhabi.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList()
+                      : selectedEmiratesValue == 'Sharjah'
+                          ? Sharjah.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList()
+                          : selectedEmiratesValue == 'Ajman'
+                              ? ajman.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList()
+                              : selectedEmiratesValue == 'Umm_Al_Quwain'
+                                  ? Umm_al_Quwain.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList()
+                                  : selectedEmiratesValue == 'Ras_Al_Khaimah'
+                                      ? Ras_Al_Khaimah.map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList()
+                                      : Fujairah.map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
             ),
             SizedBox(
               height: 25,
             ),
-            Text('Plate Number', style: TextStyle(color: ColorNames().blue,fontSize: 12.0),),
+            Text(
+              'Plate Number',
+              style: TextStyle(
+                color: ColorNames().blue,
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+              ),
+            ),
             Container(
               height: 50,
               child: TextFormField(
@@ -316,9 +482,17 @@ class _AddMoreCarState extends State<AddMoreCar> {
                   ),
                   counterText: "",
                   hintText: 'Enter your plate number here',
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 12.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: car1Controller,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -327,15 +501,13 @@ class _AddMoreCarState extends State<AddMoreCar> {
                     return 'maximum entry is 5 numbers';
                   }
                 },
-                //onSaved: (val) => fname = val.toString(),
               ),
             ),
           ],
-        )
-    );
+        ));
   }
 
-  Widget _buildPopupDialog(BuildContext context,value) {
+  Widget _buildPopupDialog(BuildContext context, value) {
     return new AlertDialog(
       title: const Text('Error'),
       content: new Column(
@@ -358,15 +530,12 @@ class _AddMoreCarState extends State<AddMoreCar> {
   }
 
   _update() async {
-    var car1= selectedPlateValue+car1Controller.text;
+    var car1 = selectedPlateValue + car1Controller.text;
     var data = {
       "full_name": name,
       "email": email,
       "cars": [
-        {
-          "license_plate": car1,
-          "state": selectedEmiratesValue
-        },
+        {"license_plate": car1, "state": selectedEmiratesValue},
       ],
       //"cars": car2.text!.isNotEmpty ? [car1.text, car2.text] : [car1.text]
     };
@@ -391,8 +560,4 @@ class _AddMoreCarState extends State<AddMoreCar> {
       }
     });
   }
-
-
-
-
 }

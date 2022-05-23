@@ -87,11 +87,15 @@ class _loginUiState extends State<loginUi> {
         centerTitle: true,
         title: Text(
           'Log into your account'.toUpperCase(),
-          style: TextStyle(color: ColorNames().blue, fontSize: 15.0),
+          style: TextStyle(
+            color: ColorNames().blue,
+            fontSize: 15.0,
+            fontFamily: 'Roboto',
+          ),
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 50,right: 50),
+        padding: EdgeInsets.only(left: 50, right: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,9 +129,10 @@ class _loginUiState extends State<loginUi> {
                     splashRadius: 0,
                     value: _checkbox,
                     onChanged: (_) async {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       setState(() {
-                        _checkbox=!_checkbox;
+                        _checkbox = !_checkbox;
                         prefs.setString('alreadyloggedin', 'true');
                       });
                     },
@@ -139,14 +144,21 @@ class _loginUiState extends State<loginUi> {
                 ),
                 Text(
                   'Keep me logged in',
-                  style: TextStyle(color: ColorNames().blue, fontSize: 11.0),
+                  style: TextStyle(
+                    color: ColorNames().blue,
+                    fontSize: 11.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
                 Spacer(),
                 InkWell(
                   child: Text(
                     'Forgot your password?',
-                    style: TextStyle(color: ColorNames().blue,
-                        fontSize: 11.0),
+                    style: TextStyle(
+                      color: ColorNames().blue,
+                      fontSize: 11.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                   onTap: () {
                     Navigator.push(
@@ -170,30 +182,32 @@ class _loginUiState extends State<loginUi> {
                   //padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [ColorNames().blue, ColorNames().blue,]),
+                      gradient: LinearGradient(colors: [
+                        ColorNames().blue,
+                        ColorNames().blue,
+                      ]),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        // onTap: (){
-                        //   if(validateAndSave()){
-                        //
-                        //     Navigator.push(
-                        //                   context,
-                        //                   MaterialPageRoute(
-                        //                       builder: (context) => CarRegistartionUi()),
-                        //                 );
-                        //               } else {
-                        //                 Navigator.push(
-                        //                   context,
-                        //                   MaterialPageRoute(
-                        //                       builder: (context) =>
-                        //                           CarRegistartionUi()),
-                        //                 );
-                        //               }
-                        // },
+                          // onTap: (){
+                          //   if(validateAndSave()){
+                          //
+                          //     Navigator.push(
+                          //                   context,
+                          //                   MaterialPageRoute(
+                          //                       builder: (context) => CarRegistartionUi()),
+                          //                 );
+                          //               } else {
+                          //                 Navigator.push(
+                          //                   context,
+                          //                   MaterialPageRoute(
+                          //                       builder: (context) =>
+                          //                           CarRegistartionUi()),
+                          //                 );
+                          //               }
+                          // },
                           onTap: () {
                             if (validateAndSave()) {
                               CallApi callApi = new CallApi();
@@ -201,7 +215,7 @@ class _loginUiState extends State<loginUi> {
                                   .login(loginRequestModel)
                                   .then((value) async {
                                 SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
+                                    await SharedPreferences.getInstance();
                                 var cars = prefs.getStringList('cars');
                                 print(value);
                                 if (value == 200) {
@@ -219,7 +233,7 @@ class _loginUiState extends State<loginUi> {
                                   otpVerify();
                                 } else {
                                   SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
+                                      await SharedPreferences.getInstance();
                                   var content = prefs.getString('loginError');
                                   showDialog(
                                     context: context,
@@ -247,7 +261,9 @@ class _loginUiState extends State<loginUi> {
                           },
                           child: Center(
                             child: Text('Log In'.toUpperCase(),
-                                style: TextStyle(                  color: Colors.white,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
                                 )),
                           )),
                     ),
@@ -273,8 +289,10 @@ class _loginUiState extends State<loginUi> {
                           child: Center(
                             child: Text('sign up'.toUpperCase(),
                                 style: TextStyle(
-                                    color: ColorNames().blue,
-                                    fontSize: 16)),
+                                  color: ColorNames().blue,
+                                  fontSize: 16,
+                                  fontFamily: 'Roboto',
+                                )),
                           )),
                     ),
                   ),
@@ -464,6 +482,7 @@ class _loginUiState extends State<loginUi> {
                 style: TextStyle(
                   color: ColorNames().blue,
                   fontSize: 15,
+                  fontFamily: 'Roboto',
                 )),
           ),
           Container(
@@ -471,14 +490,19 @@ class _loginUiState extends State<loginUi> {
             child: TextFormField(
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: ColorNames().blue,
+                  borderSide: BorderSide(
+                    color: ColorNames().blue,
                   ),
                 ),
                 hintText: 'Type your email here',
-                hintStyle: TextStyle(color: ColorNames().blue,
+                hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontFamily: 'Roboto',
                     fontSize: 10.0),
               ),
-              style: TextStyle(color: ColorNames().blue,
+              style: TextStyle(
+                  color: ColorNames().blue,
+                  fontFamily: 'Roboto',
                   fontSize: 12.0),
               controller: emailController,
               validator: (val) {
@@ -499,6 +523,7 @@ class _loginUiState extends State<loginUi> {
                 style: TextStyle(
                   color: ColorNames().blue,
                   fontSize: 15,
+                  fontFamily: 'Roboto',
                 )),
           ),
           Container(
@@ -507,14 +532,19 @@ class _loginUiState extends State<loginUi> {
               obscureText: true,
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: ColorNames().blue,
+                  borderSide: BorderSide(
+                    color: ColorNames().blue,
                   ),
                 ),
                 hintText: 'Type your password here',
-                hintStyle: TextStyle(color: ColorNames().blue,
+                hintStyle: TextStyle(
+                    color: ColorNames().blue,
+                    fontFamily: 'Roboto',
                     fontSize: 10.0),
               ),
-              style: TextStyle( color: ColorNames().blue,
+              style: TextStyle(
+                  color: ColorNames().blue,
+                  fontFamily: 'Roboto',
                   fontSize: 12.0),
               controller: passwordController,
               validator: (val) => validatePassword(val.toString()),

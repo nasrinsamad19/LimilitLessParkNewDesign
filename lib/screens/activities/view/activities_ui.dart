@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:limitlesspark_new/screens/activities/model/model.dart';
 import 'package:limitlesspark_new/screens/api/api.dart';
 import 'package:limitlesspark_new/screens/common/app_constants.dart';
+import 'package:intl/intl.dart';
 
 class Activities_ui extends StatefulWidget {
   const Activities_ui({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _Activities_uiState extends State<Activities_ui> {
           previous = value.previous;
           dataList = value.results as List;
           print(dataList);
-          print(dataList[1].cost);
+          print(dataList[1].arrival.toString());
           list = dataList as List<Result>;
           _isFirstLoadRunning = false;
         });
@@ -152,7 +153,7 @@ class _Activities_uiState extends State<Activities_ui> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
@@ -183,29 +184,33 @@ class _Activities_uiState extends State<Activities_ui> {
                     ),
                     Text(
                       'Limitless Parking'.toUpperCase(),
-                      style: TextStyle(color: ColorNames().blue, fontSize: 15.0),
+                      style: TextStyle(
+                        color: ColorNames().blue,
+                        fontSize: 15.0,
+                        fontFamily: 'Roboto',
+                      ),
                     ),
                   ],
                 ))),
         body: _isFirstLoadRunning
             ? Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/infy.gif'),
-              // CircularProgressIndicator()
-            ],
-          ),
-        )
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/infy.gif'),
+                    // CircularProgressIndicator()
+                  ],
+                ),
+              )
             : noddata
                 ? Column(
                     children: [
-                      Text(
-                          'My Trips',
+                      Text('My Trips',
                           style: TextStyle(
-                              color:
-                              ColorNames().blue,
-                              fontSize: 18)),
+                            color: ColorNames().blue,
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                          )),
                       SizedBox(
                         height: 30,
                       ),
@@ -229,89 +234,154 @@ class _Activities_uiState extends State<Activities_ui> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(dataList[index].arrival.toString(),
+                                            Text(
+                                                DateFormat("MMMM dd, yyy")
+                                                    .format(DateTime.parse(
+                                                        dataList[index]
+                                                            .arrival
+                                                            .toString())),
                                                 style: TextStyle(
-                                                    color: ColorNames().blue,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
+                                                  color: ColorNames().blue,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Roboto',
+                                                )),
                                             SizedBox(
                                               height: 10,
                                             ),
                                             Row(
                                               children: [
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text('Parking Area',
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontSize: 14)),
-                                                    SizedBox(height: 10,),
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Roboto',
+                                                        )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
                                                     Text('Vehicle',
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontSize: 13)),
-                                                    SizedBox(height: 10,),
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontSize: 13,
+                                                          fontFamily: 'Roboto',
+                                                        )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
                                                     // Text('Parking Spot',
                                                     //     style: TextStyle(
                                                     //         color: ColorNames().blue,
-                                                    //         fontSize: 14)),
+                                                    //         fontSize: 14,fontFamily: 'Roboto',)),
                                                     //SizedBox(height: 10,),
                                                     Text('Duration',
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontSize: 13)),
-                                                    SizedBox(height: 10,),
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontSize: 13,
+                                                          fontFamily: 'Roboto',
+                                                        )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
                                                     Text('Time',
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontSize: 14)),
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Roboto',
+                                                        )),
                                                   ],
                                                 ),
-                                                SizedBox(width: 50,),
+                                                SizedBox(
+                                                  width: 50,
+                                                ),
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(dataList[index].cost,
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 14)),
-                                                    SizedBox(height: 10,),
-                                                    Text(dataList[index].licensePlate,
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Roboto',
+                                                        )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                        dataList[index]
+                                                            .licensePlate,
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 13)),
-                                                    SizedBox(height: 10,),
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 13,
+                                                          fontFamily: 'Roboto',
+                                                        )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
                                                     // Text('1st Floor A34',
                                                     //     style: TextStyle(
                                                     //         color: ColorNames().blue,
                                                     //         fontWeight: FontWeight.bold,
-                                                    //         fontSize: 14)),
+                                                    //         fontSize: 14,fontFamily: 'Roboto',)),
                                                     // SizedBox(height: 10,),
-                                                    Text('3hours',
+                                                    Text(
+                                                        '${DateTime.parse(dataList[index].departure.toString()).difference(DateTime.parse(dataList[index].arrival.toString())).toString().split(':').elementAt(0).trim()}hours',
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 14)),
-                                                    SizedBox(height: 10,),
-                                                    Text('03:00 aM - 06:00 aM',
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Roboto',
+                                                        )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                        DateFormat("hh:mm a")
+                                                                .format(dataList[
+                                                                        index]
+                                                                    .arrival) +
+                                                            ' - ' +
+                                                            DateFormat(
+                                                                    "hh:mm a")
+                                                                .format(dataList[
+                                                                        index]
+                                                                    .departure),
                                                         style: TextStyle(
-                                                            color: ColorNames().blue,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 14)),
+                                                          color:
+                                                              ColorNames().blue,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Roboto',
+                                                        )),
                                                     // child: Text(
                                                     //     dataList[index].cost,
                                                     //     style: TextStyle(
                                                     //         color:
                                                     //             Colors.black,
-                                                    //         fontSize: 9)),
+                                                    //         fontSize: 9,fontFamily: 'Roboto',)),
                                                   ],
                                                 ),
                                               ],
@@ -346,34 +416,6 @@ class _Activities_uiState extends State<Activities_ui> {
                 : Center(
                     child: Text('No Activities'),
                   )
-
-        // bottomNavigationBar: noddata
-        //       ? Container(
-        //           child: Container(
-        //             height: height / 10,
-        //             width: width / 1.5,
-        //             padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
-        //             child: Container(
-        //               decoration: BoxDecoration(
-        //                 // gradient: LinearGradient(
-        //                 //     colors: [Colors.blue, ColorNames().lightBlue]),
-        //                 color: ColorNames().darkBlue,
-        //                 boxShadow: [],
-        //                 borderRadius: BorderRadius.circular(5),
-        //               ),
-        //               child: Material(
-        //                 color: Colors.transparent,
-        //                 child: InkWell(
-        //                     onTap: () {},
-        //                     child: Center(
-        //                       child: Text('LOAD MORE',
-        //                           style: TextStyle(color: Colors.white)),
-        //                     )),
-        //               ),
-        //             ),
-        //           ),
-        //         )
-        //       : Container(),
         );
   }
 
@@ -383,7 +425,7 @@ class _Activities_uiState extends State<Activities_ui> {
         'You have fetched all of the content',
         style: TextStyle(
           fontSize: 15,
-          fontFamily: 'Montserrat',
+          fontFamily: 'Roboto',
         ),
       ),
       actions: [
@@ -396,7 +438,7 @@ class _Activities_uiState extends State<Activities_ui> {
               'OK',
               style: TextStyle(
                   fontSize: 15,
-                  fontFamily: 'Montserrat',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ))

@@ -67,7 +67,11 @@ class _ResetPasswordState extends State<ResetPassword> {
         centerTitle: true,
         title: Text(
           'Register your account'.toUpperCase(),
-          style: TextStyle(color: ColorNames().blue, fontSize: 15.0),
+          style: TextStyle(
+            color: ColorNames().blue,
+            fontSize: 15.0,
+            fontFamily: 'Roboto',
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -93,6 +97,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16.0,
+                  fontFamily: 'Roboto',
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -103,9 +108,11 @@ class _ResetPasswordState extends State<ResetPassword> {
             Text(
               'Please verify your account',
               style: TextStyle(
-                  color: ColorNames().darkBlue,
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 20.0),
+                color: ColorNames().darkBlue,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                fontFamily: 'Roboto',
+              ),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -114,9 +121,11 @@ class _ResetPasswordState extends State<ResetPassword> {
             Text(
               'Enter the code we sent to your register email address',
               style: TextStyle(
-                  color: Colors.black,
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 19.0),
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 19.0,
+                fontFamily: 'Roboto',
+              ),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -141,7 +150,11 @@ class _ResetPasswordState extends State<ResetPassword> {
               child: InkWell(
                 child: Text(
                   'Resent OTP?',
-                  style: TextStyle(color: Colors.black, fontSize: 11.0),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 11.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
                 onTap: () {
                   if (widget.email.contains('null')) {
@@ -195,17 +208,15 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.only(left: 50,right: 50),
+        padding: EdgeInsets.only(left: 50, right: 50),
         child: Container(
           height: height / 12,
-         // width: width / 5,
+          // width: width / 5,
           padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                ColorNames().blue,
-                ColorNames().blue
-              ]),
+              gradient: LinearGradient(
+                  colors: [ColorNames().blue, ColorNames().blue]),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Material(
@@ -237,8 +248,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                     }
                   },
                   child: Center(
-                    child:
-                        Text('Verify', style: TextStyle(color: Colors.white)),
+                    child: Text('Verify',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                        )),
                   )),
             ),
           ),
@@ -420,7 +434,11 @@ class OtpInput extends StatelessWidget {
         decoration: const InputDecoration(
             border: OutlineInputBorder(),
             counterText: '',
-            hintStyle: TextStyle(color: Colors.black, fontSize: 20.0)),
+            hintStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 20.0,
+              fontFamily: 'Roboto',
+            )),
         onChanged: (value) {
           if (value.length == 1) {
             FocusScope.of(context).nextFocus();

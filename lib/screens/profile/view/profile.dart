@@ -54,7 +54,7 @@ class _ProfileState extends State<ProfileUI> {
       });
       emailController.text = value.email;
       fnameController.text = value.fullName;
-      cars=value.cars;
+      cars = value.cars;
       print(cars.first.state);
 
       // car1.text = cars.first.licensePlate;
@@ -62,7 +62,6 @@ class _ProfileState extends State<ProfileUI> {
       //   car2.text = value!.cars.last.licensePlate;
       // }
     });
-
   }
 
   // fetchdata() async {
@@ -111,42 +110,45 @@ class _ProfileState extends State<ProfileUI> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(color: ColorNames().blue, fontSize: 15.0),
+                    style: TextStyle(
+                      color: ColorNames().blue,
+                      fontSize: 15.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ],
               ))),
-
-      body:_isFirstLoadRunning
+      body: _isFirstLoadRunning
           ? Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/infy.gif'),
-            // CircularProgressIndicator()
-          ],
-        ),
-      ): SingleChildScrollView(
-        padding: EdgeInsets.only(left: 40, right: 40, top: 30),
-        child: Column(
-          children: [
-            signUpForm(context),
-          ],
-        ),
-      ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/infy.gif'),
+                  // CircularProgressIndicator()
+                ],
+              ),
+            )
+          : SingleChildScrollView(
+              padding: EdgeInsets.only(left: 40, right: 40, top: 30),
+              child: Column(
+                children: [
+                  signUpForm(context),
+                ],
+              ),
+            ),
       bottomNavigationBar: Container(
         decoration: new BoxDecoration(
             color: ColorNames().offwhite,
             borderRadius: new BorderRadius.only(
               topLeft: const Radius.circular(80.0),
               topRight: const Radius.circular(80.0),
-            )
-        ),
+            )),
         padding: EdgeInsets.fromLTRB(100, 40, 100, 40),
         child: Container(
           height: height / 19,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [ColorNames().blue,ColorNames().blue]),
+            gradient:
+                LinearGradient(colors: [ColorNames().blue, ColorNames().blue]),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Material(
@@ -159,8 +161,11 @@ class _ProfileState extends State<ProfileUI> {
                   }
                 },
                 child: Center(
-                  child:
-                  Text('UPDATE', style: TextStyle(color: Colors.white)),
+                  child: Text('UPDATE',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                      )),
                 )),
           ),
         ),
@@ -183,15 +188,22 @@ class _ProfileState extends State<ProfileUI> {
                 borderRadius: BorderRadius.circular(20),
                 color: ColorNames().offwhite,
               ),
-              padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+              padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
               child: TextFormField(
-                style: TextStyle(color: ColorNames().blue, fontSize: 14.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 14.0,
+                  fontFamily: 'Roboto',
+                ),
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   hintText: token,
-                  hintStyle:
-                      TextStyle(color: ColorNames().lightgrey, fontSize: 14.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().lightgrey,
+                    fontSize: 14.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
                 controller: fnameController,
                 validator: (val) {
@@ -218,15 +230,22 @@ class _ProfileState extends State<ProfileUI> {
                 borderRadius: BorderRadius.circular(20),
                 color: ColorNames().offwhite,
               ),
-              padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+              padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
               child: TextFormField(
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   hintText: 'Client email',
-                  hintStyle:
-                      TextStyle(color: ColorNames().lightgrey, fontSize: 14.0),
+                  hintStyle: TextStyle(
+                    color: ColorNames().lightgrey,
+                    fontSize: 14.0,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-                style: TextStyle(color: ColorNames().blue, fontSize: 14.0),
+                style: TextStyle(
+                  color: ColorNames().blue,
+                  fontSize: 14.0,
+                  fontFamily: 'Roboto',
+                ),
                 controller: emailController,
                 validator: (val) {
                   Pattern pattern =
@@ -251,7 +270,7 @@ class _ProfileState extends State<ProfileUI> {
               height: 20,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 _signOut();
               },
               child: Container(
@@ -262,14 +281,21 @@ class _ProfileState extends State<ProfileUI> {
                     borderRadius: BorderRadius.circular(20),
                     color: ColorNames().offwhite,
                   ),
-                  padding: EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
+                  padding:
+                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                   child: GestureDetector(
-                   onTap: (){
-                     _signOut();
-                   },
-                    child: Text('Logout', style: TextStyle(color: ColorNames().blue, fontSize: 14.0),),
-                  )
-              ),
+                    onTap: () {
+                      _signOut();
+                    },
+                    child: Text(
+                      'Logout',
+                      style: TextStyle(
+                        color: ColorNames().blue,
+                        fontSize: 14.0,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                  )),
             )
           ],
         ),

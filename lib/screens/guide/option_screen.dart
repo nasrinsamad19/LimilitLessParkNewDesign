@@ -19,11 +19,15 @@ class OptionScreen extends StatefulWidget {
 
 class _OptionScreenState extends State<OptionScreen> {
   final List ItemList = [
-    ['assets/images/calender.png','Reserve',Site_list(),],
-    ['assets/images/cars.png','My Trips',Activities_ui()],
-    ['assets/images/myCar.png','My Vehicles',MyVehicles_ui()],
-    ['assets/images/notification.png','Notifications',Notification_ui()],
-    ['assets/images/profile.png','Profile',ProfileUI()]
+    [
+      'assets/images/calender.png',
+      'Reserve',
+      Site_list(),
+    ],
+    ['assets/images/cars.png', 'My Trips', Activities_ui()],
+    ['assets/images/myCar.png', 'My Vehicles', MyVehicles_ui()],
+    ['assets/images/notification.png', 'Notifications', Notification_ui()],
+    ['assets/images/profile.png', 'Profile', ProfileUI()]
   ];
 
   @override
@@ -38,8 +42,8 @@ class _OptionScreenState extends State<OptionScreen> {
         prefs.setString('Nsite', value.data.site);
         prefs.setString('Nstate', value.data.state);
         print(prefs.getString('plateNo'));
-        print( prefs.getString('Nsite'));
-        print( prefs.getString('Nstate'));
+        print(prefs.getString('Nsite'));
+        print(prefs.getString('Nstate'));
       }
     });
   }
@@ -83,91 +87,107 @@ class _OptionScreenState extends State<OptionScreen> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(color: ColorNames().blue, fontSize: 15.0,fontFamily: 'Roboto',),
+                    style: TextStyle(
+                      color: ColorNames().blue,
+                      fontSize: 15.0,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ],
               ))),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 30,right: 30,top: 30),
-        child:  Column(
-         // crossAxisAlignment: CrossAxisAlignment.center,
+        padding: EdgeInsets.only(left: 30, right: 30, bottom: 40),
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Book Hassle Free Parking With Limitless App',
+              'Book Hassle Free Parking',
               textAlign: TextAlign.center,
-              style: TextStyle(color: ColorNames().blue, fontSize: 23.0,fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',),
+              style: TextStyle(
+                color: ColorNames().blue,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+              ),
             ),
             SizedBox(
               height: 10,
             ),
-            Image.asset("assets/images/homeImage.png"),
+            Image.asset(
+              "assets/images/homeImage.png",
+              scale: 1,
+            ),
             SizedBox(
               height: 20,
             ),
             Container(
-              height: height/2,
-              padding: EdgeInsets.only(right: 20,left: 20),
+              height: height / 2,
+              padding: EdgeInsets.only(right: 20, left: 20),
               child: ListView.separated(
                   separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                        height: 15
-                    );
+                    return SizedBox(height: 0);
                   },
                   //controller: _controller,
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      onTap: (){
+                      contentPadding: EdgeInsets.zero,
+                      onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>  ItemList[index][2],),
+                          MaterialPageRoute(
+                            builder: (context) => ItemList[index][2],
+                          ),
                         );
                       },
                       selectedTileColor: ColorNames().border,
+                      leading: Container(
+                        decoration: BoxDecoration(
+                            color: ColorNames().border, shape: BoxShape.circle),
+                        child: Image.asset(
+                          ItemList[index][0],
+                          height: 20,
+                        ),
+                        //height: height/7,
+                        width: width / 7,
+                        padding: EdgeInsets.all(15),
+                      ),
                       title: Row(
-                        crossAxisAlignment:CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: ColorNames().border,
-                               // borderRadius: BorderRadius.all(Radius.circular(20)),
-                                shape: BoxShape.circle
-                              ),
-                            child: Image.asset(ItemList[index][0],height: 20,),
-                           //height: height/7,
-                           width: width/7,
-                            padding: EdgeInsets.all(15),
-                          ),
                           SizedBox(
                             width: 20,
                           ),
-                          Text(
-                              ItemList[index][1],
+                          Text(ItemList[index][1],
                               style: TextStyle(
-                                  color:
-                                  ColorNames().blue,
+                                  color: ColorNames().blue,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontFamily: 'Roboto')),
                           Spacer(),
                           Image.asset(
-                            'assets/images/arrow.png',height: 60,
+                            'assets/images/arrow.png',
+                            height: 60,
                           ),
                         ],
                       ),
                     );
-                  }
-              ),
+                  }),
             )
           ],
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   color: ColorNames().blue,
-      //   height: 60,
-      // ),
+      bottomNavigationBar: Container(
+        decoration: new BoxDecoration(
+            color: ColorNames().offwhite,
+            borderRadius: new BorderRadius.only(
+              topLeft: const Radius.circular(60.0),
+              topRight: const Radius.circular(60.0),
+            )),
+        height: height / 9,
+        padding: EdgeInsets.fromLTRB(100, 40, 100, 40),
+      ),
     );
   }
 }
