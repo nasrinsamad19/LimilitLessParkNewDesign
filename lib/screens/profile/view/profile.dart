@@ -54,8 +54,8 @@ class _ProfileState extends State<ProfileUI> {
       });
       emailController.text = value.email;
       fnameController.text = value.fullName;
-      cars = value.cars;
-      print(cars.first.state);
+     // cars = value.cars;
+     // print(cars.first.state);
 
       // car1.text = cars.first.licensePlate;
       // if (value.cars.first.licensePlate != value.cars.last.licensePlate) {
@@ -136,40 +136,40 @@ class _ProfileState extends State<ProfileUI> {
                 ],
               ),
             ),
-      bottomNavigationBar: Container(
-        decoration: new BoxDecoration(
-            color: ColorNames().offwhite,
-            borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(80.0),
-              topRight: const Radius.circular(80.0),
-            )),
-        padding: EdgeInsets.fromLTRB(100, 40, 100, 40),
-        child: Container(
-          height: height / 19,
-          decoration: BoxDecoration(
-            gradient:
-                LinearGradient(colors: [ColorNames().blue, ColorNames().blue]),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    _profileUpdate();
-                  }
-                },
-                child: Center(
-                  child: Text('UPDATE',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto',
-                      )),
-                )),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   decoration: new BoxDecoration(
+      //       color: ColorNames().offwhite,
+      //       borderRadius: new BorderRadius.only(
+      //         topLeft: const Radius.circular(80.0),
+      //         topRight: const Radius.circular(80.0),
+      //       )),
+      //   padding: EdgeInsets.fromLTRB(100, 40, 100, 40),
+      //   child: Container(
+      //     height: height / 19,
+      //     decoration: BoxDecoration(
+      //       gradient:
+      //           LinearGradient(colors: [ColorNames().blue, ColorNames().blue]),
+      //       borderRadius: BorderRadius.circular(20),
+      //     ),
+      //     child: Material(
+      //       color: Colors.transparent,
+      //       child: InkWell(
+      //           onTap: () {
+      //             if (_formKey.currentState!.validate()) {
+      //               _formKey.currentState!.save();
+      //               _profileUpdate();
+      //             }
+      //           },
+      //           child: Center(
+      //             child: Text('UPDATE',
+      //                 style: TextStyle(
+      //                   color: Colors.white,
+      //                   fontFamily: 'Roboto',
+      //                 )),
+      //           )),
+      //     ),
+      //   ),
+      // ),
     );
   }
 

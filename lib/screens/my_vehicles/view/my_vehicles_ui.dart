@@ -15,10 +15,11 @@ class MyVehicles_ui extends StatefulWidget {
 }
 
 class _MyVehicles_uiState extends State<MyVehicles_ui> {
-  var _isloading = true;
+
+  var _isloading= true;
   List dataList = [];
   final ScrollController _controller = ScrollController();
-  late List<String> newDataList = [];
+  late List<String> newDataList=[];
   var car1;
   var car2;
   var dataLIstLength;
@@ -26,21 +27,23 @@ class _MyVehicles_uiState extends State<MyVehicles_ui> {
   var selected;
   late List<Car> list;
 
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    CallApi().fetchprofile().then((value) {
+    CallApi().fetchCars().then((value) {
       setState(() {
-        _isloading = false;
+        _isloading= false;
         print(_isloading);
         print(value);
-        dataList = value.cars as List;
+        dataList= value.cars  as List;
         print(dataList);
-        dataLIstLength = value.cars.length;
+        dataLIstLength=value.cars.length;
         car1 = value.cars.first.licensePlate;
         print(value.cars.length);
-        if (value.cars.length > 1) {
+        if(value.cars.length >1){
           car2 = value.cars.last.licensePlate;
         }
         print(dataList);
@@ -85,135 +88,127 @@ class _MyVehicles_uiState extends State<MyVehicles_ui> {
                   ),
                   Text(
                     'Limitless Parking'.toUpperCase(),
-                    style: TextStyle(
-                      color: ColorNames().blue,
-                      fontSize: 15.0,
-                      fontFamily: 'Roboto',
-                    ),
+                    style: TextStyle(color: ColorNames().blue, fontSize: 15.0,fontFamily: 'Roboto',),
                   ),
                 ],
               ))),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
-          child: _isloading
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/images/infy.gif'),
-                    ],
-                  ),
-                )
-              : Column(
-                  children: [
-                    Text('Select Your Vehicle',
-                        style: TextStyle(
-                          color: ColorNames().blue,
-                          fontSize: 18,
-                          fontFamily: 'Roboto',
-                        )),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    ListView.separated(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: 15);
-                        },
-                        controller: _controller,
-                        itemCount: dataLIstLength,
-                        itemBuilder: (BuildContext context, int index) {
-                          return RadioListTile(
-                            tileColor: ColorNames().offwhite,
-                            contentPadding: EdgeInsets.all(10),
-                            value: index,
-                            selectedTileColor: ColorNames().border,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: BorderSide(
-                                  color: index != value
-                                      ? ColorNames().border
-                                      : ColorNames().blue),
-                            ),
-                            activeColor: ColorNames().blue,
-                            groupValue: value,
-                            onChanged: (val) async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              setState(() {
-                                print(val);
-                                value = val;
-                                print(value);
-                                selected = index;
-                                prefs.setString('selectedCar',
-                                    dataList[index].licensePlate);
-                                prefs.setString('state', dataList[index].state);
-                              });
-                            },
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Vehicle',
-                                    style: TextStyle(
-                                      color: ColorNames().blue,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      fontFamily: 'Roboto',
-                                    )),
-                                Text(dataList[index].licensePlate,
-                                    style: TextStyle(
-                                      color: ColorNames().blue,
-                                      fontSize: 12,
-                                      fontFamily: 'Roboto',
-                                    )),
-                              ],
-                            ),
-                            //subtitle: Text("caption/subtext"),
-                            secondary: Image.asset(
-                              'assets/images/car.png',
-                            ),
-                            toggleable: true,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                          );
-                        }),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: height / 14,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [ColorNames().blue, ColorNames().blue]),
-                        borderRadius: BorderRadius.circular(20),
+          padding: EdgeInsets.only(left: 30,right: 30,bottom: 30),
+          child:  _isloading?
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/infy.gif'),
+              ],
+            ),
+          ):
+          Column(
+            children: [
+              Text(
+                  'My Vehicles',
+                  style: TextStyle(
+                      color:
+                      ColorNames().blue,
+                      fontSize: 18,
+                    fontFamily: 'Roboto',)),
+              SizedBox(
+                height: 30,
+              ),
+              ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                        height: 15
+                    );
+                  },
+                  controller: _controller,
+                  itemCount: dataLIstLength,
+                  itemBuilder: (BuildContext context, int index) {
+                    return RadioListTile(
+                      tileColor: ColorNames().offwhite,
+                      contentPadding: EdgeInsets.all(10),
+                      value: index,
+                      selectedTileColor: ColorNames().border,
+                      shape:  RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        side: BorderSide(
+                            color: index!=value?ColorNames().border : ColorNames().blue),
                       ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                            onTap: () async {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddMoreCar()),
-                              );
-                            },
-                            child: Center(
-                              child: Text('Add New Vehicle',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                  )),
-                            )),
+                      activeColor: ColorNames().blue,
+                      groupValue: value,
+                      onChanged: (val) async {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        setState(() {
+                          print(val);
+                          value=val;
+                          print(value);
+                          selected = index;
+                          prefs.setString('selectedCar', dataList[index].licensePlate);
+                          prefs.setString('state', dataList[index].state);
+
+                        });
+                      },
+                      title: Column(
+                        crossAxisAlignment:CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              dataList[index].name,
+                              style: TextStyle(
+                                color:
+                                ColorNames().blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,fontFamily: 'Roboto',)),
+                          Text(
+                              dataList[index].licensePlate,
+                              style: TextStyle(
+                                color:
+                                ColorNames().blue,
+                                fontSize: 12,fontFamily: 'Roboto',)),
+                        ],
                       ),
-                    ),
-                  ],
-                )),
+                      //subtitle: Text("caption/subtext"),
+                      secondary: Image.asset('assets/images/car.png',),
+                      toggleable: true,
+                      controlAffinity: ListTileControlAffinity.trailing,
+                    );
+                  }
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: height / 14,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [ColorNames().blue,ColorNames().blue]),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                      onTap: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddMoreCar()),
+                        );
+                      },
+                      child: Center(
+                        child: Text('Add New Vehicle',
+                            style: TextStyle(color: Colors.white,fontSize: 16,fontFamily: 'Roboto',)),
+                      )),
+                ),
+              ),
+            ],
+          )
+
+      ),
     );
   }
 
-  Widget _buildPopupDialog(BuildContext context, value) {
+  Widget _buildPopupDialog(BuildContext context,value) {
     return new AlertDialog(
       title: const Text(' Message'),
       content: new Column(
@@ -234,4 +229,5 @@ class _MyVehicles_uiState extends State<MyVehicles_ui> {
       ],
     );
   }
+
 }

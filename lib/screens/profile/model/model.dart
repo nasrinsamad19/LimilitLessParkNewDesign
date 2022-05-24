@@ -12,23 +12,23 @@ class Profile {
   Profile({
     required this.fullName,
     required this.email,
-    required this.cars,
+    //required this.cars,
   });
 
   String fullName;
   String email;
-  List<Car> cars;
+  //List<Car> cars;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
     fullName: json["full_name"],
     email: json["email"],
-    cars: List<Car>.from(json["cars"].map((x) => Car.fromJson(x))),
+    //cars: List<Car>.from(json["cars"].map((x) => Car.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "full_name": fullName,
     "email": email,
-    "cars": List<dynamic>.from(cars.map((x) => x.toJson())),
+    //"cars": List<dynamic>.from(cars.map((x) => x.toJson())),
   };
 }
 

@@ -4,6 +4,7 @@ import 'package:limitlesspark_new/screens/activities/model/model.dart';
 import 'package:limitlesspark_new/screens/book_now/model/model.dart';
 import 'package:limitlesspark_new/screens/car_registration/model/model.dart';
 import 'package:limitlesspark_new/screens/login/view/model.dart';
+import 'package:limitlesspark_new/screens/my_vehicles/model/mycar_model.dart';
 import 'package:limitlesspark_new/screens/profile/model/model.dart';
 import 'package:limitlesspark_new/screens/site_list/model/sites.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,10 +105,11 @@ class CallApi {
   Future<Object> login(LoginRequestModel loginRequestModel) async {
     String lurl = 'users/token/';
     String url = _baseUrl + lurl;
+    print(loginRequestModel.toJson());
     final response =
         await http.post(Uri.parse(url), body: loginRequestModel.toJson());
     print(response.statusCode);
-    print(response.reasonPhrase);
+    print(response.body);
     final responseJson = json.decode(response.body);
     print(responseJson);
     if (response.statusCode == 200) {
@@ -219,10 +221,11 @@ class CallApi {
   postUpdateCar(data, apiUrl) async {
     var fullUrl = _baseUrl + apiUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('token');
+    var token = prefs.getString('access');
+    print(token);
     print(data[0]);
     var res =
-        await http.put(Uri.parse(fullUrl), body: jsonEncode(data), headers: {
+        await http.post(Uri.parse(fullUrl), body: jsonEncode(data), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Token ${token}',
@@ -234,6 +237,9 @@ class CallApi {
       print('sucees');
       return true;
     } else {
+      Map<String, dynamic> responseJson = json.decode(res.body);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('CreateError', responseJson['message']);
       return false;
     }
   }
@@ -526,4 +532,53 @@ class CallApi {
     var jsonResponse = json.decode(response.body);
     return Sites.fromJson(json.decode(response.body));
   }
+
+  Future<MyCar> fetchCars() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var accesstoken = prefs.getString('access');
+    print(accesstoken);
+    final response =
+    await http.post(Uri.parse(_baseUrl + 'cars/list'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Token ${accesstoken}',
+    });
+    print(response.statusCode);
+    print(response.reasonPhrase);
+
+    print(response.body);
+    var jsonResponse = json.decode(response.body);
+    return MyCar.fromJson(json.decode(response.body));
+  }
+
+  postCreateCar(data, apiUrl) async {
+    var fullUrl = _baseUrl + apiUrl;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var accesstoken = prefs.getString('access');
+    var res =
+    await http.patch(Uri.parse(fullUrl), body: jsonEncode(data), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Token ${accesstoken}',
+    });
+    print(res.statusCode);
+    print(res.reasonPhrase);
+    print(res.body);
+    if (res.statusCode == 200) {
+      print('sucees');
+      return 200;
+    } else {
+      if (res.statusCode == 500) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('updateError', 'Internal Server Error');
+      } else {
+        Map<String, dynamic> responseJson = json.decode(res.body);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('updateError', responseJson['message']);
+        return false;
+      }
+    }
+  }
+
+
 }

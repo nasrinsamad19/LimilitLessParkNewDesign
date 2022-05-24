@@ -280,7 +280,6 @@ class MyAppState extends State<MyApp> {
 
   getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     FirebaseMessaging.instance.getToken().then((value) {
       print(value);
       if (value != null) {

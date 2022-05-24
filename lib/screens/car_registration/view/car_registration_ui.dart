@@ -208,7 +208,7 @@ class _CarRegistartionUiState extends State<CarRegistartionUi> {
             "registration_token": rtoken,
             "device_type": platform
           };
-    print('here');
+    print(data);
 
     CallApi().register(data, 'users/signup/').then((value) async {
       setState(() {

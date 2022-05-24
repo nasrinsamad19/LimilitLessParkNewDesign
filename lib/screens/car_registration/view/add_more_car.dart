@@ -227,7 +227,7 @@ class _AddMoreCarState extends State<AddMoreCar> {
                     child: InkWell(
                         onTap: () async {
                           if (car1Controller.text.isNotEmpty) {
-                            _update();
+                            _create();
                           } else {
                             showDialog(
                               context: context,
@@ -529,21 +529,18 @@ class _AddMoreCarState extends State<AddMoreCar> {
     );
   }
 
-  _update() async {
+  _create() async {
     var car1 = selectedPlateValue + car1Controller.text;
     var data = {
-      "full_name": name,
-      "email": email,
-      "cars": [
-        {"license_plate": car1, "state": selectedEmiratesValue},
-      ],
-      //"cars": car2.text!.isNotEmpty ? [car1.text, car2.text] : [car1.text]
+      "name": v1Controller.text,
+      "license_plate": selectedPlateValue+car1Controller.text,
+      "state": selectedEmiratesValue
     };
     print(data);
 
-    CallApi().postUpdateProfile(data, 'users/update/').then((value) async {
+    CallApi().postUpdateCar(data, 'cars/create').then((value) async {
       if (value == 200) {
-        var content = 'updated';
+        var content = 'Successfully Created';
         showDialog(
           context: context,
           builder: (BuildContext context) =>
@@ -551,7 +548,7 @@ class _AddMoreCarState extends State<AddMoreCar> {
         );
       } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        var content = prefs.getString('error');
+        var content = prefs.getString('CreateError');
         showDialog(
           context: context,
           builder: (BuildContext context) =>

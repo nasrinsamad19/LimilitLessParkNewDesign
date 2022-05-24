@@ -29,7 +29,7 @@ class _CarList_uiState extends State<CarList_ui> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    CallApi().fetchprofile().then((value) {
+    CallApi().fetchCars().then((value) {
       setState(() {
         _isloading = false;
         print(_isloading);
@@ -156,7 +156,7 @@ class _CarList_uiState extends State<CarList_ui> {
                               title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Vehicle' + ' ' + '${index + 1}',
+                                  Text(dataList[index].name,
                                       style: TextStyle(
                                         color: ColorNames().blue,
                                         fontWeight: FontWeight.bold,
